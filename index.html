@@ -4,16 +4,117 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Carros</title>
+  <meta name="description" content="Carros usados que estoy considerando en Hermosillo, Sonora.">
   <style>
-    body { margin: 0; font-family: system-ui, sans-serif; background: #f5f5f5; color: #222; }
-    main { max-width: 720px; margin: 0 auto; padding: 48px 16px; }
-    h1 { margin-top: 0; }
+    :root {
+      --bg: #f6f5f2; --card: #ffffff; --text: #1d1d1b; --muted: #6b6a66;
+      --line: #e3e1db; --accent: #1f6feb; --ok: #1a7f37; --warn: #9a6700; --off: #a40e26;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #141413; --card: #1e1e1c; --text: #ecebe6; --muted: #a09f99;
+        --line: #33322f; --accent: #58a6ff; --ok: #3fb950; --warn: #d29922; --off: #f85149;
+      }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text);
+      font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+    main { max-width: 960px; margin: 0 auto; padding: 40px 16px 64px; }
+    h1 { margin: 0 0 4px; font-size: 2rem; }
+    .sub { margin: 0 0 32px; color: var(--muted); }
+    h2 { font-size: 1.15rem; margin: 40px 0 12px; }
+    .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+    .car { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px;
+      display: flex; flex-direction: column; gap: 8px; }
+    .car h3 { margin: 0; font-size: 1.1rem; }
+    .price { font-size: 1.4rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+    .specs { margin: 0; padding: 0; list-style: none; color: var(--muted); font-size: .92rem; }
+    .notes { margin: 0; font-size: .95rem; }
+    .tag { align-self: flex-start; font-size: .78rem; font-weight: 600; padding: 2px 8px; border-radius: 999px;
+      border: 1px solid currentColor; }
+    .tag.ok { color: var(--ok); } .tag.off { color: var(--off); }
+    .car.sold { opacity: .6; }
+    .car a { color: var(--accent); font-size: .92rem; margin-top: auto; }
+    table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: .95rem; }
+    th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+    th { color: var(--muted); font-weight: 600; }
+    td.num, th.num { text-align: right; }
+    .table-wrap { overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
+    ul.plain { padding-left: 20px; }
+    footer { margin-top: 48px; color: var(--muted); font-size: .85rem; }
   </style>
 </head>
 <body>
   <main>
     <h1>Carros</h1>
-    <p>Próximamente.</p>
+    <p class="sub">Carros usados que estoy viendo en Facebook Marketplace · Hermosillo, Son. · Actualizado el 18 de octubre de 2026</p>
+
+    <h2>Los que he visto</h2>
+    <div class="grid">
+      <article class="car">
+        <span class="tag ok">Disponible</span>
+        <h3>2017 Toyota Yaris</h3>
+        <div class="price">$155,000 MXN</div>
+        <ul class="specs">
+          <li>119,000 km · Manual</li>
+          <li>Blanco por fuera, negro por dentro · Gasolina</li>
+        </ul>
+        <p class="notes">Un solo dueño con factura de agencia. Llantas nuevas, vidrios y espejos eléctricos, estéreo original con pantalla. Baja reciente.</p>
+        <a href="https://www.facebook.com/marketplace/item/1847855853326881/">Ver publicación</a>
+      </article>
+
+      <article class="car">
+        <span class="tag ok">Disponible</span>
+        <h3>2012 Honda CR-V</h3>
+        <div class="price">$150,000 MXN</div>
+        <ul class="specs">
+          <li>152,000 km · Automática</li>
+          <li>Gris por fuera, negro por dentro · Gasolina</li>
+        </ul>
+        <p class="notes">Nacional, único dueño, en muy buenas condiciones. El precio es negociable.</p>
+        <a href="https://www.facebook.com/marketplace/item/2004249980094200/">Ver publicación</a>
+      </article>
+
+      <article class="car sold">
+        <span class="tag off">Vendido</span>
+        <h3>2016 Honda Pilot</h3>
+        <div class="price">$145,000 MXN</div>
+        <ul class="specs">
+          <li>100,000 km · Automática</li>
+          <li>Azul por fuera, gris por dentro · Gasolina</li>
+        </ul>
+        <p class="notes">Mexicana. El vendedor dice que el motor y la transmisión están al 100.</p>
+        <a href="https://www.facebook.com/marketplace/item/2292823351259150/">Ver publicación</a>
+      </article>
+    </div>
+
+    <h2>Comparación</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Carro</th><th class="num">Precio</th><th class="num">Km</th><th class="num">Precio por cada 1,000 km</th><th>Transmisión</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>2017 Toyota Yaris</td><td class="num">$155,000</td><td class="num">119,000</td><td class="num">$1,303</td><td>Manual</td></tr>
+          <tr><td>2012 Honda CR-V</td><td class="num">$150,000</td><td class="num">152,000</td><td class="num">$987</td><td>Automática</td></tr>
+          <tr><td>2016 Honda Pilot (vendido)</td><td class="num">$145,000</td><td class="num">100,000</td><td class="num">$1,450</td><td>Automática</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Lo que veo hasta ahora</h2>
+    <ul class="plain">
+      <li><strong>Presupuesto:</strong> todos andan entre $145,000 y $155,000 MXN.</li>
+      <li><strong>Tipo:</strong> he visto sobre todo SUVs Honda (CR-V, Pilot), y un compacto, el Yaris.</li>
+      <li><strong>Yaris:</strong> es el más nuevo de los disponibles y el que tiene mejores papeles (factura de agencia, un solo dueño). Es manual y es el más chico.</li>
+      <li><strong>CR-V:</strong> es más grande y automática, y el precio se puede negociar. Es cinco años más vieja y tiene más kilómetros.</li>
+      <li><strong>Pilot:</strong> era el que tenía menos kilómetros por el precio, pero ya se vendió.</li>
+    </ul>
+
+    <h2>Otros parecidos en Hermosillo</h2>
+    <p class="notes">Marketplace también me está sugiriendo estos, en el mismo rango de precio: 2018 Hyundai Elantra ($135,000), 2016 Honda Accord ($138,000), 2019 Toyota Camry ($160,000), 2015 Toyota Camry ($126,000), 2013 Volkswagen Golf ($125,000) y 2015 Honda Civic ($100,000).</p>
+
+    <footer>Los datos vienen de publicaciones de Facebook Marketplace y pueden cambiar o desaparecer.</footer>
   </main>
 </body>
 </html>
