@@ -181,5 +181,14 @@ a.btn:hover,a.btn:focus-visible{background:var(--accent);color:var(--surface);ou
   <p class="foot">Los datos vienen tal como los publicó cada vendedor y no están verificados. Los anuncios pueden desaparecer o cambiar de precio.</p>
 </div>
 
+<script>
+// Recarga la página cada 15 minutos para mostrar la versión más reciente.
+(function(){
+  var MS=15*60*1000, last=Date.now();
+  function check(){ if(document.visibilityState==='visible' && Date.now()-last>=MS){ location.reload(); } }
+  setInterval(check,60*1000);
+  document.addEventListener('visibilitychange',check);
+})();
+</script>
 </body>
 </html>
