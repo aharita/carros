@@ -182,12 +182,29 @@ a.btn:hover,a.btn:focus-visible{background:var(--accent);color:var(--surface);ou
 </div>
 
 <script>
-// Recarga la página cada 15 minutos para mostrar la versión más reciente.
+// Cada 15 minutos revisa si hay una versión nueva de la página y solo entonces recarga.
+// Pensado para celulares: también revisa al volver a la pestaña. No guarda nada en el navegador.
 (function(){
-  var MS=15*60*1000, last=Date.now();
-  function check(){ if(document.visibilityState==='visible' && Date.now()-last>=MS){ location.reload(); } }
-  setInterval(check,60*1000);
-  document.addEventListener('visibilitychange',check);
+  if(!window.fetch) return;
+  var MS=15*60*1000, base=null, last=0;
+  if(/[?&]v=\d+/.test(location.search) && history.replaceState){ history.replaceState(null,'',location.pathname+location.hash); }
+  function get(){
+    return fetch(location.pathname+'?_='+Date.now(),{cache:'no-store'}).then(function(r){ return r.ok?r.text():null; }).catch(function(){ return null; });
+  }
+  function check(force){
+    if(document.visibilityState!=='visible') return;
+    if(!force && Date.now()-last<MS) return;
+    last=Date.now();
+    get().then(function(t){
+      if(t===null) return;
+      if(base===null){ base=t; return; }
+      if(t!==base){ location.replace(location.pathname+'?v='+Date.now()+location.hash); }
+    });
+  }
+  check(true);
+  setInterval(function(){ check(false); },60*1000);
+  document.addEventListener('visibilitychange',function(){ check(false); });
+  window.addEventListener('pageshow',function(e){ if(e.persisted) check(false); });
 })();
 </script>
 </body>
